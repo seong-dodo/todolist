@@ -68,7 +68,7 @@ input.addEventListener('keypress', addTodoByEnter);
 const oneBtn = document.createElement('input');
 oneBtn.type = 'checkbox';
 oneBtn.addEventListener('click', function total(e) {
-    for (let i = 1; i < ul.childNodes.length; i++) {
+    for (let i = 2; i < ul.childNodes.length; i++) {
         if (e.target.checked === false) {
             ul.childNodes[i].children[0].checked = false;
             ul.childNodes[i].childNodes[1].classList.remove('done');
@@ -76,8 +76,39 @@ oneBtn.addEventListener('click', function total(e) {
             ul.childNodes[i].children[0].checked = true;
             ul.childNodes[i].childNodes[1].classList.add('done');
         }
-
     }
 });
 ul.prepend(oneBtn);
 
+
+//[전체삭제&선택삭제]  branch명 "feature/전체삭제&선택삭제"
+/** 
+function removetodos() {
+    let result = [];
+    for (let i = 2; i < ul.childNodes.length; i++) {
+      const li = ul.childNodes[i];
+      const liCheckBox = li.children[0];
+      if(liCheckBox.checked){
+          result.push(li);
+      }
+    }
+    for(let i = 0; i < result.length; i++) {
+        result[i].remove();
+    }
+}
+*/
+function removetodos() {
+    const licheckbox = document.querySelectorAll('input:checked');
+    console.log(licheckbox);
+    for (let i = 1; i < licheckbox.length; i++) {
+      const li = licheckbox[i].parentNode;
+      li.remove();
+    }
+}
+
+const removeTodosBtn = document.createElement('button');
+removeTodosBtn.classList.add('removetodos');
+removeTodosBtn.textContent = 'x';
+ul.append(removeTodosBtn);
+
+removeTodosBtn.addEventListener('click', removetodos);
